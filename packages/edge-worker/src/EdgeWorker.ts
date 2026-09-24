@@ -20,10 +20,7 @@ import {
 } from "miko-claude-runner";
 import { getMikoAppUrl } from "miko-cloudflare-tunnel-client";
 import { CodexRunner } from "miko-codex-runner";
-import {
-	ConfigUpdater,
-	ensureSelfHostedGitHubAuth,
-} from "miko-config-updater";
+import { ConfigUpdater, ensureSelfHostedGitHubAuth } from "miko-config-updater";
 import type {
 	AgentActivityCreateInput,
 	AgentEvent,
@@ -60,8 +57,6 @@ import {
 	CLIRPCServer,
 	createLogger,
 	GitHubTokenStore,
-	resolveGitHubAppBotIdentity,
-	resolveGitHubAppSlugFromEnv,
 	isAgentSessionCreatedWebhook,
 	isAgentSessionPromptedWebhook,
 	isContentUpdateMessage,
@@ -80,6 +75,8 @@ import {
 	isUserPromptMessage,
 	PersistenceManager,
 	requireLinearWorkspaceId,
+	resolveGitHubAppBotIdentity,
+	resolveGitHubAppSlugFromEnv,
 	resolvePath,
 	WebhookIpValidator,
 } from "miko-core";

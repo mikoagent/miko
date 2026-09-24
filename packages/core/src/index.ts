@@ -114,16 +114,6 @@ export {
 	getDefaultReposDir,
 	getDefaultWorktreesDir,
 } from "./constants.js";
-// GitHub App installation token store (multi-org GitHub support)
-export type {
-	GitHubInstallationToken,
-	GitHubTokensFile,
-} from "./github-token-store.js";
-export {
-	extractOwnerFromGitHubUrl,
-	GITHUB_TOKENS_FILENAME,
-	GitHubTokenStore,
-} from "./github-token-store.js";
 // GitHub commit authorship (App bot + mikoagent co-author trailer)
 export type { GitHubAppBotIdentity } from "./github-authorship.js";
 export {
@@ -134,6 +124,16 @@ export {
 	resolveGitHubAppBotIdentity,
 	resolveGitHubAppSlugFromEnv,
 } from "./github-authorship.js";
+// GitHub App installation token store (multi-org GitHub support)
+export type {
+	GitHubInstallationToken,
+	GitHubTokensFile,
+} from "./github-token-store.js";
+export {
+	extractOwnerFromGitHubUrl,
+	GITHUB_TOKENS_FILENAME,
+	GitHubTokenStore,
+} from "./github-token-store.js";
 // Issue Tracker Abstraction
 export type {
 	AgentActivity,
