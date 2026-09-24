@@ -18,8 +18,7 @@ describe("ensureMikoagentCoAuthorTrailer", () => {
 	});
 
 	it("preserves other co-authors and adds mikoagent once", () => {
-		const message =
-			"fix: bug\n\nCo-authored-by: Alice <alice@example.com>\n";
+		const message = "fix: bug\n\nCo-authored-by: Alice <alice@example.com>\n";
 		const result = ensureMikoagentCoAuthorTrailer(message);
 		expect(result).toContain("Co-authored-by: Alice <alice@example.com>");
 		expect(result).toContain(MIKOAGENT_COAUTHOR_TRAILER);

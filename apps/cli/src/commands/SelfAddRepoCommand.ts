@@ -267,8 +267,7 @@ export class SelfAddRepoCommand extends BaseCommand {
 				try {
 					await this.cloneRepository(url, repositoryPath);
 				} catch (error) {
-					const detail =
-						error instanceof Error ? error.message : String(error);
+					const detail = error instanceof Error ? error.message : String(error);
 					this.logError(
 						`Failed to clone repository: ${detail}. ` +
 							"Prefer a GitHub App installation token (GITHUB_APP_ID + github-app.pem) " +
@@ -345,7 +344,7 @@ export class SelfAddRepoCommand extends BaseCommand {
 
 		const token = resolveGitHubTokenForRepoUrl(this.app.mikoHome, url);
 		const cloneUrl =
-			token && looksLikeGitHubUrl(url) ? toHttpsGitHubUrl(url) ?? url : url;
+			token && looksLikeGitHubUrl(url) ? (toHttpsGitHubUrl(url) ?? url) : url;
 
 		if (token && cloneUrl.startsWith("https://")) {
 			// Credential helper supplies x-access-token; avoid embedding the
@@ -359,5 +358,4 @@ export class SelfAddRepoCommand extends BaseCommand {
 
 		execSync(`git clone ${url} ${repositoryPath}`, { stdio: "inherit" });
 	}
-
 }

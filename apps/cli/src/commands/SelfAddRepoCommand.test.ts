@@ -559,7 +559,9 @@ describe("SelfAddRepoCommand", () => {
 				}),
 			);
 			// Must not embed the token in the clone argv
-			expect(mocks.mockExecSync.mock.calls[0][0]).not.toContain("ghs_app_token");
+			expect(mocks.mockExecSync.mock.calls[0][0]).not.toContain(
+				"ghs_app_token",
+			);
 		});
 
 		it("should clone repository to correct path", async () => {

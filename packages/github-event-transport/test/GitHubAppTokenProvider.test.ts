@@ -273,31 +273,36 @@ describe("GitHubAppTokenProvider", () => {
 
 	it("lists installations and mints store-shaped tokens", async () => {
 		const expiresAt = new Date(Date.now() + 3600 * 1000).toISOString();
-		const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation(async (input) => {
-			const url = String(input);
-			if (url.includes("/app/installations?") || url.endsWith("/app/installations")) {
-				return new Response(
-					JSON.stringify([
-						{ id: 11, account: { login: "OrgOne", type: "Organization" } },
-						{ id: 22, account: { login: "user-two", type: "User" } },
-					]),
-					{ status: 200 },
-				);
-			}
-			if (url.includes("/installations/11/access_tokens")) {
-				return new Response(
-					JSON.stringify({ token: "ghs_one", expires_at: expiresAt }),
-					{ status: 200 },
-				);
-			}
-			if (url.includes("/installations/22/access_tokens")) {
-				return new Response(
-					JSON.stringify({ token: "ghs_two", expires_at: expiresAt }),
-					{ status: 200 },
-				);
-			}
-			return new Response("nope", { status: 404 });
-		});
+		const fetchSpy = vi
+			.spyOn(globalThis, "fetch")
+			.mockImplementation(async (input) => {
+				const url = String(input);
+				if (
+					url.includes("/app/installations?") ||
+					url.endsWith("/app/installations")
+				) {
+					return new Response(
+						JSON.stringify([
+							{ id: 11, account: { login: "OrgOne", type: "Organization" } },
+							{ id: 22, account: { login: "user-two", type: "User" } },
+						]),
+						{ status: 200 },
+					);
+				}
+				if (url.includes("/installations/11/access_tokens")) {
+					return new Response(
+						JSON.stringify({ token: "ghs_one", expires_at: expiresAt }),
+						{ status: 200 },
+					);
+				}
+				if (url.includes("/installations/22/access_tokens")) {
+					return new Response(
+						JSON.stringify({ token: "ghs_two", expires_at: expiresAt }),
+						{ status: 200 },
+					);
+				}
+				return new Response("nope", { status: 404 });
+			});
 
 		const provider = new GitHubAppTokenProvider({
 			appId: "12345",
@@ -325,12 +330,14 @@ describe("GitHubAppTokenProvider", () => {
 
 	it("getTokenDetails returns expiry for store persistence", async () => {
 		const expiresAt = new Date(Date.now() + 3600 * 1000).toISOString();
-		const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValueOnce(
-			new Response(
-				JSON.stringify({ token: "ghs_detail", expires_at: expiresAt }),
-				{ status: 200 },
-			),
-		);
+		const fetchSpy = vi
+			.spyOn(globalThis, "fetch")
+			.mockResolvedValueOnce(
+				new Response(
+					JSON.stringify({ token: "ghs_detail", expires_at: expiresAt }),
+					{ status: 200 },
+				),
+			);
 		const provider = new GitHubAppTokenProvider({
 			appId: "12345",
 			installationId: "55",

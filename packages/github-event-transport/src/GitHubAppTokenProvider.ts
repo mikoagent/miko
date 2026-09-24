@@ -212,10 +212,7 @@ export class GitHubAppTokenProvider {
 		} else {
 			installations = await this.listInstallations();
 			// If listing returned nothing but a default id is configured, try it.
-			if (
-				installations.length === 0 &&
-				this.config.installationId
-			) {
+			if (installations.length === 0 && this.config.installationId) {
 				installations = [
 					await this.getInstallation(this.config.installationId),
 				];

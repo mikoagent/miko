@@ -533,9 +533,7 @@ export class RunnerConfigBuilder {
 		if (input.githubToken || input.gitAuthor) {
 			config.additionalEnv = {
 				...config.additionalEnv,
-				...(input.githubToken
-					? { MIKO_GH_TOKEN: input.githubToken }
-					: {}),
+				...(input.githubToken ? { MIKO_GH_TOKEN: input.githubToken } : {}),
 				...(input.gitAuthor
 					? {
 							GIT_AUTHOR_NAME: input.gitAuthor.name,

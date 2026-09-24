@@ -110,7 +110,9 @@ export async function ensureSelfHostedGitHubAuth(
 	try {
 		ensureGitHubCredentialHelper(mikoHome);
 		ensureGhTokenResolver(mikoHome);
-		logger?.info?.("✅ GitHub auth scripts configured (credential helper + gh resolver)");
+		logger?.info?.(
+			"✅ GitHub auth scripts configured (credential helper + gh resolver)",
+		);
 	} catch (error) {
 		logger?.warn?.(
 			"Failed to configure GitHub auth scripts (non-fatal)",

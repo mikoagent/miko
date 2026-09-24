@@ -30,9 +30,7 @@ describe("createSelfHostedGitHubAppTokenProvider", () => {
 	});
 
 	it("returns null when App credentials are missing (fallback path)", () => {
-		expect(
-			createSelfHostedGitHubAppTokenProvider(mikoHome, {}),
-		).toBeNull();
+		expect(createSelfHostedGitHubAppTokenProvider(mikoHome, {})).toBeNull();
 	});
 
 	it("creates a provider when GITHUB_APP_ID and pem exist", () => {
@@ -69,27 +67,32 @@ describe("ensureSelfHostedGitHubAuth", () => {
 		writeFileSync(join(mikoHome, "github-app.pem"), pem);
 		const expiresAt = new Date(Date.now() + 3600_000).toISOString();
 
-		const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation(async (input) => {
-			const url = String(input);
-			if (url.includes("/app/installations?") || url.endsWith("/app/installations")) {
-				return new Response(
-					JSON.stringify([
-						{
-							id: 42,
-							account: { login: "AcmeOrg", type: "Organization" },
-						},
-					]),
-					{ status: 200, headers: { "Content-Type": "application/json" } },
-				);
-			}
-			if (url.includes("/access_tokens")) {
-				return new Response(
-					JSON.stringify({ token: "ghs_minted_acme", expires_at: expiresAt }),
-					{ status: 200, headers: { "Content-Type": "application/json" } },
-				);
-			}
-			return new Response("not found", { status: 404 });
-		});
+		const fetchSpy = vi
+			.spyOn(globalThis, "fetch")
+			.mockImplementation(async (input) => {
+				const url = String(input);
+				if (
+					url.includes("/app/installations?") ||
+					url.endsWith("/app/installations")
+				) {
+					return new Response(
+						JSON.stringify([
+							{
+								id: 42,
+								account: { login: "AcmeOrg", type: "Organization" },
+							},
+						]),
+						{ status: 200, headers: { "Content-Type": "application/json" } },
+					);
+				}
+				if (url.includes("/access_tokens")) {
+					return new Response(
+						JSON.stringify({ token: "ghs_minted_acme", expires_at: expiresAt }),
+						{ status: 200, headers: { "Content-Type": "application/json" } },
+					);
+				}
+				return new Response("not found", { status: 404 });
+			});
 
 		const result = await ensureSelfHostedGitHubAuth(mikoHome, {
 			env: { GITHUB_APP_ID: "123" },
