@@ -124,6 +124,16 @@ export {
 	GITHUB_TOKENS_FILENAME,
 	GitHubTokenStore,
 } from "./github-token-store.js";
+// GitHub commit authorship (App bot + mikoagent co-author trailer)
+export type { GitHubAppBotIdentity } from "./github-authorship.js";
+export {
+	ensureMikoagentCoAuthorTrailer,
+	MIKOAGENT_COAUTHOR_EMAIL,
+	MIKOAGENT_COAUTHOR_NAME,
+	MIKOAGENT_COAUTHOR_TRAILER,
+	resolveGitHubAppBotIdentity,
+	resolveGitHubAppSlugFromEnv,
+} from "./github-authorship.js";
 // Issue Tracker Abstraction
 export type {
 	AgentActivity,
