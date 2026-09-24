@@ -7,9 +7,7 @@ import {
 } from "miko-simple-agent-runner";
 import { GrokRunner } from "./GrokRunner.js";
 
-export class SimpleGrokRunner<
-	T extends string,
-> extends SimpleAgentRunner<T> {
+export class SimpleGrokRunner<T extends string> extends SimpleAgentRunner<T> {
 	protected async executeAgent(
 		prompt: string,
 		options?: SimpleAgentQueryOptions,

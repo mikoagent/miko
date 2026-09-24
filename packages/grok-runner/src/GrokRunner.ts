@@ -1,7 +1,4 @@
-import {
-	type ChildProcessWithoutNullStreams,
-	spawn,
-} from "node:child_process";
+import { type ChildProcessWithoutNullStreams, spawn } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import { EventEmitter } from "node:events";
 import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
@@ -188,8 +185,7 @@ export class GrokRunner extends EventEmitter implements IAgentRunner {
 					error = new Error("Grok session stopped");
 				} else if (typeof code === "number" && code !== 0) {
 					const output =
-						this.stderr.trim() ||
-						this.nonJsonStartupOutput.join("\n").trim();
+						this.stderr.trim() || this.nonJsonStartupOutput.join("\n").trim();
 					const suffix = output ? `: ${output}` : "";
 					error = new Error(`Grok exited with code ${code}${suffix}`);
 				} else if (signal) {
@@ -288,14 +284,8 @@ export class GrokRunner extends EventEmitter implements IAgentRunner {
 		if (this.config.allowedTools && this.config.allowedTools.length > 0) {
 			args.push("--tools", this.config.allowedTools.join(","));
 		}
-		if (
-			this.config.disallowedTools &&
-			this.config.disallowedTools.length > 0
-		) {
-			args.push(
-				"--disallowed-tools",
-				this.config.disallowedTools.join(","),
-			);
+		if (this.config.disallowedTools && this.config.disallowedTools.length > 0) {
+			args.push("--disallowed-tools", this.config.disallowedTools.join(","));
 		}
 
 		return args;
@@ -448,9 +438,7 @@ export class GrokRunner extends EventEmitter implements IAgentRunner {
 
 		if (!this.hasInitMessage) {
 			const sessionId =
-				this.sessionInfo.sessionId ||
-				this.config.resumeSessionId ||
-				"pending";
+				this.sessionInfo.sessionId || this.config.resumeSessionId || "pending";
 			this.pushMessage({
 				type: "system",
 				subtype: "init",

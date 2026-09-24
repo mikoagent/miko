@@ -212,10 +212,7 @@ describe("RunnerSelectionService", () => {
 			defaultRunner: "claude",
 		} as EdgeWorkerConfig);
 
-		const selection = service.determineRunnerSelection(
-			["grok/grok-4.6"],
-			"",
-		);
+		const selection = service.determineRunnerSelection(["grok/grok-4.6"], "");
 		expect(selection.runnerType).toBe("grok");
 		expect(selection.modelOverride).toBe("grok-4.6");
 	});
@@ -225,10 +222,7 @@ describe("RunnerSelectionService", () => {
 			defaultRunner: "claude",
 		} as EdgeWorkerConfig);
 
-		const selection = service.determineRunnerSelection(
-			[],
-			"[model=grok-4.6]",
-		);
+		const selection = service.determineRunnerSelection([], "[model=grok-4.6]");
 		expect(selection.runnerType).toBe("grok");
 		expect(selection.modelOverride).toBe("grok-4.6");
 	});
@@ -239,5 +233,4 @@ describe("RunnerSelectionService", () => {
 		expect(service.getDefaultRunner()).toBe("grok");
 		delete process.env.XAI_API_KEY;
 	});
-
 });

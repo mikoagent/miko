@@ -148,9 +148,9 @@ describe("GrokRunner", () => {
 			(message) => message.type === "assistant",
 		) as SDKAssistantMessage | undefined;
 		expect(assistant).toBeDefined();
-		expect(
-			(assistant?.message.content[0] as { text?: string }).text,
-		).toBe("Hello from Grok");
+		expect((assistant?.message.content[0] as { text?: string }).text).toBe(
+			"Hello from Grok",
+		);
 
 		const result = allMessages.at(-1) as SDKResultMessage;
 		expect(result.type).toBe("result");

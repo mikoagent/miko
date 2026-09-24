@@ -128,6 +128,7 @@ import {
 	isNoteOnMergeRequest,
 	stripMention as stripGitLabMention,
 } from "miko-gitlab-event-transport";
+import { GrokRunner } from "miko-grok-runner";
 import {
 	LinearEventTransport,
 	LinearIssueTrackerService,
@@ -140,7 +141,6 @@ import {
 	type MikoToolsOptions,
 	type ResolvedSession,
 } from "miko-mcp-tools";
-import { GrokRunner } from "miko-grok-runner";
 import { OpenCodeRunner } from "miko-opencode-runner";
 import {
 	SlackEventTransport,
